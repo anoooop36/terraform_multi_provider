@@ -12,11 +12,6 @@ provider "lightstep" {
   organization    = "your-lightstep-organization"
 }
 
-# Example: Create AWS EC2 Dashboard
-module "aws-dashboards" {
-  source            = "lightstep/aws-dashboards/lightstep//modules/ec2-dashboard"
-  lightstep_project = "your-lightstep-project"
-}
 
 provider "aws" {
  access_key = var.access_key
