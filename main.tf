@@ -4,38 +4,58 @@ terraform {
       source = "lightstep/lightstep"
       version = "1.62.0"
     }
+    local = {
+      source = "hashicorp/local"
+      version = "2.2.3"
+    }
   }
 }
 
 
-provider "vsphere" {
+
+provider "local" {
+  # Configuration options
+}
+
+
+provider "http" {
+  # Configuration options
+}
+
+data "http" "example" {
+  url = "https://checkpoint-api.hashicorp.com/v1/check/terraform"
+
+  # Optional request headers
+  request_headers = {
+    Accept = "application/json"
+  }
+}
+
+provider "aws" {
  access_key = var.access_key
  secret_key = var.secret_key
  region     = var.region
 }
 
-provider "vsphere" {
- access_key = var.access_key
- secret_key = var.secret_key
- region     = var.region
-}
 provider "lightstep" {
-  api_key         = "your-lightstep-org-api-key"
-  organization    = "your-lightstep-organization"
+  api_key         = var.lightStepKey
+  organization    = var.lightstepOrg
 }
+
+
 
 resource "aws_ebs_volume" "awsEbsExampleWithList" {
   availability_zone = "us-east-1a"
   size              = var.ebsSizes[0]
-  tags              = {
-                        Name = var.sampleTags[1]
-                      }
+  tags              = data.http.example.response_body
 }
 
 
 
 variable "access_key" {}
 variable "secret_key" {}
+variable "lightStepKey" {}
+variable "lightstepOrg" {}
 
 variable "region" {
  type    = string
