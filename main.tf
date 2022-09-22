@@ -12,7 +12,8 @@ terraform {
 }
 
 
-
+  #api_key         = "your-lightstep-org-api-key"
+  #organization    = "your-lightstep-organization"
 provider "local" {
   # Configuration options
 }
