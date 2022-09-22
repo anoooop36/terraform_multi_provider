@@ -48,7 +48,7 @@ resource "aws_ebs_volume" "awsEbsExampleWithList" {
   availability_zone = "us-east-1a"
   size              = var.ebsSizes[0]
   tags              = {
-                        Name = data.http.example.response_body
+                        Name = data.http.example.status_code
                       }
 }
 
