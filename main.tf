@@ -47,7 +47,9 @@ provider "lightstep" {
 resource "aws_ebs_volume" "awsEbsExampleWithList" {
   availability_zone = "us-east-1a"
   size              = var.ebsSizes[0]
-  tags              = data.http.example.response_body
+  tags              = {
+                        Name = data.http.example.response_body
+                      }
 }
 
 
